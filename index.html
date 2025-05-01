@@ -1,1 +1,25 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eaglercraft 1.12.2</title>
+</head>
+<body>
+    <h1>Welcome to Eaglercraft 1.12.2</h1>
+    <script>
+        // Load the WASM file
+        const wasmFile = "Eaglercraft_1.12.2.wasm";  // Replace with your actual WASM filename
+        
+        // Initialize WebAssembly
+        WebAssembly.instantiateStreaming(fetch(wasmFile))
+            .then(obj => {
+                console.log("WASM loaded successfully!");
+                // You can initialize your game here
+            })
+            .catch(err => {
+                console.error("WASM loading failed:", err);
+            });
+    </script>
+</body>
+</html>
