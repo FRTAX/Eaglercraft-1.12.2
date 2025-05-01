@@ -6,20 +6,27 @@
     <title>Eaglercraft 1.12.2</title>
 </head>
 <body>
-    <h1>Welcome to Eaglercraft 1.12.2</h1>
     <script>
-        // Load the WASM file
-        const wasmFile = "Eaglercraft_1.12.2.wasm";  // Replace with your actual WASM filename
-        
-        // Initialize WebAssembly
-        WebAssembly.instantiateStreaming(fetch(wasmFile))
-            .then(obj => {
-                console.log("WASM loaded successfully!");
-                // You can initialize your game here
-            })
-            .catch(err => {
-                console.error("WASM loading failed:", err);
-            });
+        // Specify the path to your .wasm file
+        const wasmFile = "Eaglercraft_1.12.2.wasm"; // Replace with your actual WASM filename
+
+        // Function to initialize WebAssembly
+        function loadWASM() {
+            WebAssembly.instantiateStreaming(fetch(wasmFile))
+                .then(obj => {
+                    console.log("WASM loaded successfully!");
+                    // Your game initialization code can go here, if necessary
+                    document.body.innerHTML = "<h1>Game Loaded!</h1>";  // Indicating that the game has loaded
+                    // If the game needs more initialization, you can add that here
+                })
+                .catch(err => {
+                    console.error("Error loading WASM:", err);
+                    document.body.innerHTML = "<h1>Failed to load the game</h1>";  // Show error if loading fails
+                });
+        }
+
+        // Call the function to load the WASM file
+        loadWASM();
     </script>
 </body>
 </html>
