@@ -6,26 +6,37 @@
     <title>Eaglercraft 1.12.2</title>
 </head>
 <body>
-    <script>
-        // Specify the path to your .wasm file
-        const wasmFile = "Eaglercraft_1.12.2.wasm"; // Replace with your actual WASM filename
+    <h1>Loading Eaglercraft...</h1> <!-- Placeholder while loading -->
 
-        // Function to initialize WebAssembly
+    <script>
+        // Path to your .wasm file (check file location)
+        const wasmFile = "Eaglercraft_1.12.2.wasm"; // Update the path if needed
+
+        // Function to load WASM
         function loadWASM() {
-            WebAssembly.instantiateStreaming(fetch(wasmFile))
-                .then(obj => {
+            console.log("Attempting to load WASM file from: " + wasmFile); // Debugging message
+
+            fetch(wasmFile)
+                .then(response => {
+                    if (!response.ok) {
+                        console.error("Failed to fetch the WASM file. Status: " + response.status); // Debugging message
+                        throw new Error("Failed to fetch the WASM file");
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(buffer => WebAssembly.instantiate(buffer))
+                .then(wasmModule => {
                     console.log("WASM loaded successfully!");
-                    // Your game initialization code can go here, if necessary
-                    document.body.innerHTML = "<h1>Game Loaded!</h1>";  // Indicating that the game has loaded
-                    // If the game needs more initialization, you can add that here
+                    // Game setup code can go here
+                    document.body.innerHTML = "<h1>Game Loaded!</h1>";
                 })
                 .catch(err => {
                     console.error("Error loading WASM:", err);
-                    document.body.innerHTML = "<h1>Failed to load the game</h1>";  // Show error if loading fails
+                    document.body.innerHTML = "<h1>Failed to load the game</h1>";
                 });
         }
 
-        // Call the function to load the WASM file
+        // Load the WASM file on page load
         loadWASM();
     </script>
 </body>
